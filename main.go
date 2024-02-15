@@ -3,38 +3,50 @@ package main
 import "fmt"
 
 func main() {
-	// Maps
-	// These are similar to Python dictionaries or, to a lesser
-	// extent, JavaScript objects.
-	// The type definition of a map goes as follows:
-	// If you want the keys to be of type string, and the values of type
-	// float64, then do the following:
-	menu := map[string]float64{
-		"soup":        5.99,
-		"chicken pie": 7.99,
-		"salad":       6.99,
-		"fudge cake":  3.99, // Trailing commas are REQUIRED
-	}
-	// So the typedef goes map[typeof keys]typeof values
+	// Pass-by-value: Part 1
+	// Go is a PBV language. This means that whenever we pass a value into a
+	// function, it creates a copy of that value.
 
-	fmt.Println(menu)
-	fmt.Println(menu["soup"]) // Bracker syntax is needed to select a value.
+	// 1.1. Define a variable
+	name := "Morgan"
 
-	// Loop
-	for item, price := range menu {
-		fmt.Printf("The %v costs £%v\n", item, price)
-	}
+	// 1.2. Print it out
+	fmt.Println(name)
 
-	// Ints as key type
-	phonebook := map[int]string{
-		12345678901: "Morgan Jones",
-		23456789012: "John Doe",
-		34567890123: "Jane Doe",
-		45678901234: "Jack Lastname",
-	}
+	// 1.3. Pass it into a function
+	changeName(name)
 
-	fmt.Println(phonebook)
-	fmt.Println(phonebook[12345678901])
-	phonebook[12345678901] = "Senoj Nagrom"
-	fmt.Println(phonebook[12345678901])
+	// 1.4. The output of the original variable is unchanged
+	fmt.Println(name)
+
+	// This is because we Go automatically created a **copy** of the
+	// `name` variable for the function to use.
+
+	// But if we WANT to modify the value, we can return a value and
+	// assign it to the original variable.
+	// 1.1. Define a variable
+	name = "Morgan"
+
+	// 2.2. Run the revised function and assign it to the variable
+	name = changeNameReturn(name)
+
+	// 2.2. Print the name and notice it has been modified
+	fmt.Println(name)
+}
+
+// 1.3.1. Take in a **copy** of a name
+func changeName(name string) {
+	// 1.3.2. Change the **copy** of the name
+	name = "Another Name"
+
+	// 1.3.3. Return nothing
+}
+
+// 2.1.1. Take in a **copy** of a name with the return type string
+func changeNameReturn(name string) string {
+	// 2.1.2. Change the **copy** of the name
+	name = "Another Name"
+
+	// 2.1.3. Return the copy of the name
+	return name
 }
