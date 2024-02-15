@@ -2,44 +2,43 @@ package main
 
 import (
 	"fmt"
-	"sort"
 )
 
 func main() {
-	// INTS
-	ages := []int{16, 23, 45, 76, 29, 40}
+	a := 0
+	for a <= 5 { // The same as while (a <= 5) {}
+		fmt.Printf("a = %v\n", a)
+		a++
+	}
 
-	// The sorts.Ints method sorts integers from smallest to largest
-	// keep in mind that this .Ints method DOES
-	// alter the original slice/array.
-	sort.Ints(ages)
-	fmt.Println(ages)
+	for b := 6; b <= 10; b++ { // The same as for (let b = 6; b <= 10; b++) {}
+		fmt.Printf("b = %v\n", b)
+	}
 
-	// We can also use .SearchInts to find the index of an integer
-	index45 := sort.SearchInts(ages, 45)
-	fmt.Println(index45)
+	// Iterating through arrays & slices
+	names := []string{"Morgan", "Nagrom", "Ganrom", "Romnag"}
 
-	// However, if we try to search for an int that doesn't exist...
-	index100 := sort.SearchInts(ages, 100)
-	fmt.Println(index100)
-	// This will print 6, which is one more than the length of the array
+	// Method 1
+	for i := 0; i < len(names); i++ {
+		name := names[i]
+		fmt.Printf("names[%v] = %v\n", i, name)
+	}
 
-	// And if we append to the array and try again...
-	ages = append(ages, 32)
-	index100 = sort.SearchInts(ages, 100)
-	fmt.Println(index100)
-	// This will now print 7, which is one more than the length of the array.
-	// If the index of an int cannot be found, it will always return
-	// len(arr) + 1
+	// Or we can iterate through an array/slice with...
+	// Method 2
+	for i, name := range names {
+		fmt.Printf("names[%v] = %v\n", i, name)
+	}
 
-	// STRINGS
-	names := []string{"Morgan", "Nagrom", "Ganmor", "Romnag"}
+	// And if we don't need index OR the value, replace it with an underscore
+	for _, name := range names {
+		fmt.Println(name)
 
-	// We can now use the .Strings method to sort this slice into
-	// alphabetical order. Again, this modifies the original array.
-	sort.Strings(names)
+		// NOTE: If we change the value of the array item from within a loop,
+		// it does NOT modify the original array.
+		name = "Someone Else"
+	}
+
+	// This is unaffected
 	fmt.Println(names)
-
-	// The method .SearchStrings also exist, and those are
-	// pretty self-explanatory
 }
