@@ -1,15 +1,25 @@
 package main
 
-import (
-	"fmt"
-)
+import "fmt"
 
 func main() {
-	age := 17
+	greeting1 := greet("Morgan", 16)
+	greeting2 := greet("Jane", 19)
 
-	if age >= 18 {
-		fmt.Println("This person is a legal adult.")
-	} else {
-		fmt.Println("This person is a minor.")
-	}
+	fmt.Println(greeting1)
+	fmt.Println(greeting2)
+
+	farewell1 := farewell("Morgan")
+	farewell2 := farewell("Jane")
+
+	fmt.Println(farewell1)
+	fmt.Println(farewell2)
+}
+
+func greet(name string, age int) string {
+	return fmt.Sprintf("Hello, %v! You're %v-years-old, correct?", name, age)
+}
+
+func farewell(name string) string {
+	return fmt.Sprintf("Goodbye, %v! Hope to see you soon!", name)
 }
