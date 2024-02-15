@@ -3,50 +3,44 @@ package main
 import "fmt"
 
 func main() {
-	// Pass-by-value: Part 1
-	// Go is a PBV language. This means that whenever we pass a value into a
-	// function, it creates a copy of that value.
+	// 1.1. Define a map
+	menu := map[string]float64{
+		"pie":        5.99,
+		"fudge cake": 3.99,
+	}
 
-	// 1.1. Define a variable
-	name := "Morgan"
-
-	// 1.2. Print it out
-	fmt.Println(name)
+	// 1.2. Print the map
+	fmt.Println(menu)
 
 	// 1.3. Pass it into a function
-	changeName(name)
+	modifyPrice(menu)
 
-	// 1.4. The output of the original variable is unchanged
-	fmt.Println(name)
+	// 1.4. Print it out
+	fmt.Println(menu)
 
-	// This is because we Go automatically created a **copy** of the
-	// `name` variable for the function to use.
+	// Unlike in part 1, the value is actually modified this time!
+	// This is because certain data structures, such as maps, can be
+	// extremely large, and it is more memory efficient and quicker to
+	// instead just give the function a pointer to the original value
+	// instead of copying the entire value
 
-	// But if we WANT to modify the value, we can return a value and
-	// assign it to the original variable.
-	// 1.1. Define a variable
-	name = "Morgan"
-
-	// 2.2. Run the revised function and assign it to the variable
-	name = changeNameReturn(name)
-
-	// 2.2. Print the name and notice it has been modified
-	fmt.Println(name)
+	// Data structures that would be *copied* would be:
+	// * strings
+	// * ints
+	// * floats
+	// * booleans
+	// * arrays
+	// * structs
+	// Data structures that would pass in a *pointer* would be:
+	// * slices
+	// * maps
+	// * functions
 }
 
-// 1.3.1. Take in a **copy** of a name
-func changeName(name string) {
-	// 1.3.2. Change the **copy** of the name
-	name = "Another Name"
+// 1.3.1. Take in a map variable
+func modifyPrice(menu map[string]float64) {
+	// 1.3.2. Modify the map
+	menu["pie"] = 6.99
 
 	// 1.3.3. Return nothing
-}
-
-// 2.1.1. Take in a **copy** of a name with the return type string
-func changeNameReturn(name string) string {
-	// 2.1.2. Change the **copy** of the name
-	name = "Another Name"
-
-	// 2.1.3. Return the copy of the name
-	return name
 }
