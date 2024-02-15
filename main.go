@@ -5,40 +5,29 @@ import (
 )
 
 func main() {
-	a := 0
-	for a <= 5 { // The same as while (a <= 5) {}
-		fmt.Printf("a = %v\n", a)
-		a++
-	}
+	age := 17
+	rights := calculateRights(age)
+	canDrive, canDrink, canDrinkUS := rights[0], rights[1], rights[2]
 
-	for b := 6; b <= 10; b++ { // The same as for (let b = 6; b <= 10; b++) {}
-		fmt.Printf("b = %v\n", b)
-	}
+	fmt.Printf("This person is %v-years-old. This means that they can:\nDrive: %v,\nDrink: %v,\nDrink in the US: %v\n", age, canDrive, canDrink, canDrinkUS)
 
-	// Iterating through arrays & slices
-	names := []string{"Morgan", "Nagrom", "Ganrom", "Romnag"}
+	age = 18
+	rights = calculateRights(age)
+	canDrive, canDrink, canDrinkUS = rights[0], rights[1], rights[2]
 
-	// Method 1
-	for i := 0; i < len(names); i++ {
-		name := names[i]
-		fmt.Printf("names[%v] = %v\n", i, name)
-	}
+	fmt.Printf("This person is %v-years-old. This means that they can:\nDrive: %v,\nDrink: %v,\nDrink in the US: %v\n", age, canDrive, canDrink, canDrinkUS)
 
-	// Or we can iterate through an array/slice with...
-	// Method 2
-	for i, name := range names {
-		fmt.Printf("names[%v] = %v\n", i, name)
-	}
+	age = 21
+	rights = calculateRights(age)
+	canDrive, canDrink, canDrinkUS = rights[0], rights[1], rights[2]
 
-	// And if we don't need index OR the value, replace it with an underscore
-	for _, name := range names {
-		fmt.Println(name)
+	fmt.Printf("This person is %v-years-old. This means that they can:\nDrive: %v,\nDrink: %v,\nDrink in the US: %v\n", age, canDrive, canDrink, canDrinkUS)
+}
 
-		// NOTE: If we change the value of the array item from within a loop,
-		// it does NOT modify the original array.
-		name = "Someone Else"
-	}
+func calculateRights(age int) [3]bool {
+	canDrive := age >= 17
+	canDrink := age >= 18
+	canDrinkUS := age >= 21
 
-	// This is unaffected
-	fmt.Println(names)
+	return [3]bool{canDrive, canDrink, canDrinkUS}
 }
