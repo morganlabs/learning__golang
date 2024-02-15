@@ -1,30 +1,35 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"strings"
+)
 
 func main() {
-	names := []string{"Morgan", "Jane", "John"}
+	// When using multiple return types, similarly to a loop through an
+	// array/slice, you must account for every returned value. Use an
+	// underscore to discard the value.
+	firstInitial1, lastInitial1 := getInitials("Morgan Jones")
+	firstInitial2, _ := getInitials("Morgan")
 
-	cycleNames(names, greet)
-	cycleNames(names, farewell)
+	fmt.Printf("%v%v\n", firstInitial1, lastInitial1)
+	fmt.Printf("%v\n", firstInitial2)
 }
 
-// A function can take in another function as an argument (a "callback function")
-// This callback MUST match the same arguments in as the function being called upon
-// So this means that cycleNames takes in a slice of names, and a function that MUSt
-// ONLY take in 1 string as an argument. Then, this callback can be called from
-// within the function!
-// Callback function canNOT return any values.
-func cycleNames(names []string, callback func(string)) {
+// Multiple return values are signified by making the return type:
+// (type, type, type, ...)
+func getInitials(name string) (string, string) {
+	name = strings.ToUpper(name)
+	names := strings.Split(name, " ")
+
+	var initials []string
 	for _, name := range names {
-		callback(name)
+		initials = append(initials, name[:1])
 	}
-}
 
-func greet(name string) {
-	fmt.Printf("Hello, %v! How are you?\n", name)
-}
+	if len(initials) == 1 {
+		return initials[0], "_"
+	}
 
-func farewell(name string) {
-	fmt.Printf("Goodbye, %v! Hope to see you soon!\n", name)
+	return initials[0], initials[1]
 }
