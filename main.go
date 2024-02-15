@@ -1,27 +1,40 @@
-// The `package main` line indicates we are creating a package named main.
-// This acts as the entry package to our file.
 package main
 
 import "fmt"
 
-// There can only be ONE functon called `main` in an entire go program.
-// This is the beginning of our program. `main` cannot exist in any other
-// files.
 func main() {
-	// Here, we're going to use the function `greet` which is defined in greetings.go
-	// which is under the same package name `main`.
-	greet("Morgan")
-
-	// And we're also going to access the `points` slide, which is also defined in
-	// greetings.go
-	for _, points := range points {
-		fmt.Println(points)
+	// Maps
+	// These are similar to Python dictionaries or, to a lesser
+	// extent, JavaScript objects.
+	// The type definition of a map goes as follows:
+	// If you want the keys to be of type string, and the values of type
+	// float64, then do the following:
+	menu := map[string]float64{
+		"soup":        5.99,
+		"chicken pie": 7.99,
+		"salad":       6.99,
+		"fudge cake":  3.99, // Trailing commas are REQUIRED
 	}
-}
+	// So the typedef goes map[typeof keys]typeof values
 
-// Currently at this stage in the course I am watching, we're running these go files with
-// `go run main.go`
-// However, doing this will result in go telling us that `points` and `greet` are not defined.
-// To fix this, we need to include every file inside of the `main` package for their vairables
-// and functions to be exposed to us:
-// `go run main.go greetings.go`
+	fmt.Println(menu)
+	fmt.Println(menu["soup"]) // Bracker syntax is needed to select a value.
+
+	// Loop
+	for item, price := range menu {
+		fmt.Printf("The %v costs £%v\n", item, price)
+	}
+
+	// Ints as key type
+	phonebook := map[int]string{
+		12345678901: "Morgan Jones",
+		23456789012: "John Doe",
+		34567890123: "Jane Doe",
+		45678901234: "Jack Lastname",
+	}
+
+	fmt.Println(phonebook)
+	fmt.Println(phonebook[12345678901])
+	phonebook[12345678901] = "Senoj Nagrom"
+	fmt.Println(phonebook[12345678901])
+}
