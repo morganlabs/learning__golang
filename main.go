@@ -2,61 +2,44 @@ package main
 
 import (
 	"fmt"
-	"strings"
+	"sort"
 )
 
 func main() {
-	name := "Morgan"
-	greeting := fmt.Sprintf("Hello, %v!", name)
+	// INTS
+	ages := []int{16, 23, 45, 76, 29, 40}
 
-	// NOTE: All of these methods are NOT destructive, as in they
-	// do NOT modify the original string input. Thee values must
-	// either be saved to a new variable, printed or saved over
-	// the original variable to be useful
+	// The sorts.Ints method sorts integers from smallest to largest
+	// keep in mind that this .Ints method DOES
+	// alter the original slice/array.
+	sort.Ints(ages)
+	fmt.Println(ages)
 
-	// We can import "strings" and use strings.Contains to find out
-	// if a string contains a substring.
-	// Here we are checking if `greeting` contains `name`, which will
-	// always be true.
-	containsName1 := strings.Contains(greeting, name)
+	// We can also use .SearchInts to find the index of an integer
+	index45 := sort.SearchInts(ages, 45)
+	fmt.Println(index45)
 
-	// But here, we're checking if "Jack" exists. This returns false
-	containsName2 := strings.Contains(greeting, "Jack")
+	// However, if we try to search for an int that doesn't exist...
+	index100 := sort.SearchInts(ages, 100)
+	fmt.Println(index100)
+	// This will print 6, which is one more than the length of the array
 
-	// However, if we change the name to Jack and reformat the greeting
-	// string...
-	name = "Jack"
-	greeting = fmt.Sprintf("Hello, %v!", name)
+	// And if we append to the array and try again...
+	ages = append(ages, 32)
+	index100 = sort.SearchInts(ages, 100)
+	fmt.Println(index100)
+	// This will now print 7, which is one more than the length of the array.
+	// If the index of an int cannot be found, it will always return
+	// len(arr) + 1
 
-	// This returns true
-	containsName3 := strings.Contains(greeting, "Jack")
-	fmt.Println(containsName1, containsName2, containsName3)
+	// STRINGS
+	names := []string{"Morgan", "Nagrom", "Ganmor", "Romnag"}
 
-	// We can also use strings.Replace and .ReplaceAll to replace either
-	// n or all instances of a substring inside of a string
-	// .Replace requires you to specify the number of instances to replace
-	// at the end of the method
-	noMoreJack := strings.Replace(greeting, "Jack", "Morgan", 1)
-	fmt.Println(noMoreJack)
+	// We can now use the .Strings method to sort this slice into
+	// alphabetical order. Again, this modifies the original array.
+	sort.Strings(names)
+	fmt.Println(names)
 
-	// And we can use .ReplaceAll to replace every instance
-	greeting = "Hello, Earth. Hello, Earth. Hello, Earth."
-	noMoreEarth := strings.ReplaceAll(greeting, "Earth", "Mars")
-	fmt.Println(noMoreEarth)
-
-	// There's also .ToUpper and .ToLower to convert a string to
-	// upper- or lower-case respectively
-	noMoreEarthShouting := strings.ToUpper(noMoreEarth)
-	noMoreEarthWhisper := strings.ToLower(noMoreEarth)
-	fmt.Println(noMoreEarthShouting)
-	fmt.Println(noMoreEarthWhisper)
-
-	// Or .Index, which allows us to find the index of a substring
-	whereIsMars := strings.Index(noMoreEarth, "Mars")
-	fmt.Println(whereIsMars)
-	// This will print 7, as the first instance of Mars is found at index 7.
-
-	// Or we can use .Split to split a string into a slice
-	sliceMars := strings.Split(noMoreEarth, " ")
-	fmt.Println(sliceMars)
+	// The method .SearchStrings also exist, and those are
+	// pretty self-explanatory
 }
