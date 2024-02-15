@@ -3,23 +3,28 @@ package main
 import "fmt"
 
 func main() {
-	greeting1 := greet("Morgan", 16)
-	greeting2 := greet("Jane", 19)
+	names := []string{"Morgan", "Jane", "John"}
 
-	fmt.Println(greeting1)
-	fmt.Println(greeting2)
-
-	farewell1 := farewell("Morgan")
-	farewell2 := farewell("Jane")
-
-	fmt.Println(farewell1)
-	fmt.Println(farewell2)
+	cycleNames(names, greet)
+	cycleNames(names, farewell)
 }
 
-func greet(name string, age int) string {
-	return fmt.Sprintf("Hello, %v! You're %v-years-old, correct?", name, age)
+// A function can take in another function as an argument (a "callback function")
+// This callback MUST match the same arguments in as the function being called upon
+// So this means that cycleNames takes in a slice of names, and a function that MUSt
+// ONLY take in 1 string as an argument. Then, this callback can be called from
+// within the function!
+// Callback function canNOT return any values.
+func cycleNames(names []string, callback func(string)) {
+	for _, name := range names {
+		callback(name)
+	}
 }
 
-func farewell(name string) string {
-	return fmt.Sprintf("Goodbye, %v! Hope to see you soon!", name)
+func greet(name string) {
+	fmt.Printf("Hello, %v! How are you?\n", name)
+}
+
+func farewell(name string) {
+	fmt.Printf("Goodbye, %v! Hope to see you soon!\n", name)
 }
